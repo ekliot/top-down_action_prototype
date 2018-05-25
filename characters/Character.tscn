@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://characters/character.gd" type="Script" id=1]
+[ext_resource path="res://util/states/StateMachine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
+
+[node name="Character" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
+__meta__ = {
+"_edit_horizontal_guides_": [ -32.5748 ],
+"_edit_vertical_guides_": [ -15.9853 ]
+}
+ACCEL = Vector2( 40, 30 )
+MAX_SPEED = 500
+
+[node name="StateMachine" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="." index="2"]
+
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Visibility" ]
+
+
