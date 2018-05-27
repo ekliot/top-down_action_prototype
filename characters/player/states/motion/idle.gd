@@ -14,17 +14,17 @@ func _update( fsm, delta ):
   return ._update( fsm, delta )
 
 func _physics_update( fsm, delta ):
+  # if dodge
+
+  if move_dir() != Vector2( 0.0, 0.0 ):
+    return 'move'
+
   return ._physics_update( fsm, delta )
 
 func _parse_input( fsm, ev ):
   return ._parse_input( fsm, ev )
 
 func _parse_unhandled_input( fsm, ev ):
-  # if dodge
-
-  if move_dir() != Vector2( 0.0, 0.0 ):
-    return 'move'
-
   return ._parse_unhandled_input( fsm, ev )
 
 func _on_animation_finished( fsm, ani_name ):
