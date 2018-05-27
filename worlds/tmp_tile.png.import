@@ -2,14 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tmp_tile.png-7d3bdcaab38272693130d600dbde3781.stex"
+path="res://.import/tmp_tile.png-2f8a146907c34e14cd9d0c02fb7b5552.stex"
 
 [deps]
 
-source_file="res://tmp_tile.png"
+source_file="res://worlds/tmp_tile.png"
 source_md5="137e35ee7d3860b96961c0ef27de133b"
 
-dest_files=[ "res://.import/tmp_tile.png-7d3bdcaab38272693130d600dbde3781.stex" ]
+dest_files=[ "res://.import/tmp_tile.png-2f8a146907c34e14cd9d0c02fb7b5552.stex" ]
 dest_md5="2e587c934b5bb0bdd425fd029183a30c"
 
 [params]
