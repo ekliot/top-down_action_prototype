@@ -17,8 +17,21 @@ var look_dir = Vector2( 0.0, 0.0 )
 # CORE METHODS #
 # ============ #
 
-# update the velocity based on a NORMALIZED direction and any relevant multipliers
-func set_velocity( dir, max_mult=1.0, accel_mult=1.0 ):
+func move_me( vel=velocity ):
+  velocity = move_and_slide( vel )
+
+# ============== #
+# HELPER METHODS #
+# ============== #
+
+func get_velocity():
+  return velocity
+
+func get_velocity_flat():
+  return velocity.abs().floor()
+
+# gets the friction applied to the KB at this moment in time
+func get_friction():
   # TODO grab friction from the tile currently stood on (e.g. wood vs ice vs tar)
   var friction = get_node( '../Floor' ).get_collision_friction()
 
@@ -30,19 +43,4 @@ func set_velocity( dir, max_mult=1.0, accel_mult=1.0 ):
       # print( "wall %d // %f" % [ i, get_slide_collision( i ).collider.friction ] )
       friction += get_slide_collision( i ).collider.friction
 
-  velocity += ACCEL * accel_mult * dir
-
-  var max_x = MAX_SPEED * max_mult * abs( dir.x )
-  var max_y = MAX_SPEED * max_mult * abs( dir.y )
-
-  if dir.y == 0:
-    velocity.y = lerp( velocity.y, 0.0, friction )
-  else:
-    velocity.y = min( max( velocity.y, -max_y ), max_y )
-
-  if dir.x == 0:
-    velocity.x = lerp( velocity.x, 0.0, friction )
-  else:
-    velocity.x = min( max( velocity.x, -max_x ), max_x )
-
-  velocity = move_and_slide( velocity )
+  return friction

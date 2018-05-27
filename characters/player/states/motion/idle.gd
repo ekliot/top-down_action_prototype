@@ -15,6 +15,9 @@ func _update( fsm, delta ):
 
 func _physics_update( fsm, delta ):
   # if dodge
+  if Input.is_action_just_pressed( 'dodge' ):
+    fsm.push( 'recover' )
+    return 'dodge'
 
   if move_dir() != Vector2( 0.0, 0.0 ):
     return 'move'
