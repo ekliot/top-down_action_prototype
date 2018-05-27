@@ -8,12 +8,13 @@
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="World" type="Node"]
+[node name="World" type="Node" index="0"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 246, 199 )
 _sections_unfolded = [ "Collision", "Material", "Transform", "Visibility", "collision" ]
+MAX_SPEED = 250
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="1"]
 

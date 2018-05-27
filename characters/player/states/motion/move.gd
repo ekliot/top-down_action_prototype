@@ -1,9 +1,5 @@
 extends '../motion.gd'
 
-# onready var DIRECTIONS = {
-#   'up': InputEventKey
-# }
-
 func _init():
   ID = 'move'
 
@@ -30,4 +26,4 @@ func _physics_update( fsm, delta ):
 
   # if we've stopped moving (including hitting a wall), return to our last state (idle)
   if fsm.host.velocity.abs().floor() == Vector2( 0.0, 0.0 ):
-    return '~'
+    return fsm.OP_POP
