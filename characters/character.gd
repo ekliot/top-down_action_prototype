@@ -2,8 +2,8 @@
 
 extends KinematicBody2D
 
-export (Vector2) var ACCEL = Vector2( 40, 30 )
 export (float) var MAX_SPEED = 250
+export (Vector2) var ACCEL = Vector2( 40, 30 )
 
 onready var fsm = $StateMachine
 var velocity = Vector2( 0.0, 0.0 )
@@ -13,15 +13,14 @@ var look_dir = Vector2( 0.0, 0.0 )
 # OVERRIDEABLES #
 # ============= #
 
-# ========= #
-# UTILITIES #
-# ========= #
+# ============ #
+# CORE METHODS #
+# ============ #
 
-# update the velocity based on a NORMALIZED direction
-func set_velocity( dir ):
-  # TODO this ought to grab the world's "floor" friction
-  # var friction = get_parent().floor.friction
-  var friction = 0.1
+# update the velocity based on a NORMALIZED direction and any relevant multipliers
+func set_velocity( dir, max_mult=1.0, accel_mult=1.0 ):
+  # TODO grab friction from the tile currently stood on (e.g. wood vs ice vs tar)
+  var friction = get_node( '../Floor' ).get_collision_friction()
 
   if get_slide_count() > 0:
     # this is naive, and will not select for "real" walls, and will
@@ -31,10 +30,10 @@ func set_velocity( dir ):
       # print( "wall %d // %f" % [ i, get_slide_collision( i ).collider.friction ] )
       friction += get_slide_collision( i ).collider.friction
 
-  velocity += ACCEL * dir
+  velocity += ACCEL * accel_mult * dir
 
-  var max_x = MAX_SPEED * abs( dir.x )
-  var max_y = MAX_SPEED * abs( dir.y )
+  var max_x = MAX_SPEED * max_mult * abs( dir.x )
+  var max_y = MAX_SPEED * max_mult * abs( dir.y )
 
   if dir.y == 0:
     velocity.y = lerp( velocity.y, 0.0, friction )
