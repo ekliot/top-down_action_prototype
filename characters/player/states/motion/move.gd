@@ -6,7 +6,7 @@ extends '../motion.gd'
 
 #= EXPORTS
 
-export (float) var MAX_VEL = Vector2( 250, 240 )
+export (Vector2) var MAX_VEL = Vector2( 250, 240 )
 export (Vector2) var ACCEL = Vector2( 40, 30 )
 
 export (float) var SPRINT_MAX   = 1.5
@@ -36,18 +36,24 @@ func _on_leave( fsm ):
   sprinting = false
   return ._on_leave( fsm )
 
-func _physics_update( fsm, delta ):
-  var interrupt = check_interrupts()
+func _update( fsm, delta ):
+  var interruptor = check_interrupts()
+  if interruptor:
+    return interruptor
 
-  if interrupt:
-    return interrupt
+  return ._update( fsm, delta )
+
+func _physics_update( fsm, delta ):
+
+  if move_dir() == Vector2( 0.0, 0.0 ):
+    return fsm.OP_POP
 
   # update my velocity based on where I want to move
   check_sprint()
   move_step( fsm )
 
   # if we've stopped moving (including hitting a wall), return to our last state (idle)
-  if fsm.host.get_velocity_flat() == Vector2( 0.0, 0.0 ):
+  if fsm.host.get_velocity() == Vector2( 0.0, 0.0 ):
     return fsm.OP_POP
 
   return ._physics_update( fsm, delta )
@@ -76,7 +82,7 @@ func move_step( fsm ):
   if dir.y == 0:
     _vel.y = apply_friction_flt( _vel.y, frict )
 
-  player.move_me( _vel )
+  player.apply_velocity( _vel )
 
 # ============== #
 # HELPER METHODS #
@@ -85,3 +91,15 @@ func move_step( fsm ):
 func check_sprint():
   sprinting = Input.is_action_pressed( 'sprint' )
   return sprinting
+
+func check_interrupts():
+  if Input.is_action_just_pressed( 'dodge' ):
+    return 'dodge'
+  if Input.is_action_just_pressed( 'parry' ):
+    # fsm.set_state_data( 'parry', fsm.host.get_parry_data() )
+    return 'parry'
+  if Input.is_action_just_pressed( 'attack' ):
+    fsm.set_state_data( 'attack', fsm.host.get_attack_data() )
+    return 'attack'
+
+  return null

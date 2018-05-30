@@ -14,13 +14,24 @@ func _update( fsm, delta ):
   return ._update( fsm, delta )
 
 func _physics_update( fsm, delta ):
-  # if dodge
   if Input.is_action_just_pressed( 'dodge' ):
-    fsm.push( 'recover' )
     return 'dodge'
+
+  if Input.is_action_just_pressed( 'attack' ):
+    fsm.set_state_data( 'attack', fsm.host.get_attack_data() )
+    return 'attack'
 
   if move_dir() != Vector2( 0.0, 0.0 ):
     return 'move'
+
+  if fsm.host.get_velocity_flat() != Vector2( 0.0, 0.0 ):
+    var player = fsm.host
+    var _vel = player.get_velocity()
+    var frict = player.get_friction()
+
+    _vel = apply_friction_vec( _vel, frict )
+
+    player.apply_velocity( _vel )
 
   return ._physics_update( fsm, delta )
 

@@ -1,7 +1,5 @@
 extends "res://util/states/state.gd"
 
-var interruptable = false
-
 # ========= #
 # OVERRIDES #
 # ========= #
@@ -32,10 +30,3 @@ func move_dir():
   var dir = Vector2( int(r) - int(l), int(d) - int(u) )
 
   return dir.normalized()
-
-func check_interrupts():
-  if Input.is_action_just_pressed( 'dodge' ):
-    return 'dodge'
-
-  else:
-    return null
