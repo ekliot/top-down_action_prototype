@@ -12,7 +12,6 @@ func _ready():
   fsm.enter( 'idle' )
 
 func _process( delta ):
-  # look_dir = look_dir()
   pass
 
 # ==== #

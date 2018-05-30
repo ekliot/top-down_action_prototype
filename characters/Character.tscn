@@ -21,8 +21,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ -32.5748 ],
 "_edit_vertical_guides_": [ -15.9853 ]
 }
-ACCEL = Vector2( 40, 30 )
-MAX_SPEED = 500
 
 [node name="StateMachine" parent="." index="0" instance=ExtResource( 2 )]
 

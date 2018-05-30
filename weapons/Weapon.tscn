@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://weapons/weapon.gd" type="Script" id=1]
+[ext_resource path="res://weapons/AttackArea.tscn" type="PackedScene" id=2]
+
+[node name="Weapon" type="Node" index="0"]
+
+script = ExtResource( 1 )
+DAMAGE_MIN = 0.0
+DAMAGE_MAX = 0.0
+ATTACK_RANGE = 0.0
+ATTACK_DEGREES = 0.0
+CHARGE_SPEED = 0.0
+ATTACK_SPEED = 0.0
+RECOVER_SPEED = 0.0
+
+[node name="AttackArea" parent="." index="0" instance=ExtResource( 2 )]
+
+
