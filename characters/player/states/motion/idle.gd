@@ -3,9 +3,9 @@ extends '../motion.gd'
 func _init():
   ID = 'idle'
 
-func _on_enter( fsm ):
+func _on_enter( fsm, last_state ):
   # set animation to idle
-  return ._on_enter( fsm )
+  return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
   return ._on_leave( fsm )

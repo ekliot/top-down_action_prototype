@@ -9,7 +9,7 @@ extends '../character.gd'
 func _ready():
   # ACCEL = Vector2( 40, 30 )
   # MAX_SPEED = 500
-  fsm.enter( 'idle' )
+  fsm.start( 'idle' )
 
 func _process( delta ):
   pass

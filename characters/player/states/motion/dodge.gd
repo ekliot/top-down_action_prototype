@@ -3,20 +3,20 @@ extends '../motion.gd'
 export (float) var FORCE = 600
 export (float) var DURATION = 0.1
 
+# var dodge_data = {}
 var elapsed = 0
 var rolled = false
 
 func _init():
   ID = 'dodge'
 
-func _on_enter( fsm ):
-  if not rolled:
-    # start animation
-    pass
-  return ._on_enter( fsm )
+func _on_enter( fsm, last_state ):
+  # start animation
+  return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
   elapsed = 0
+  # "hard stop"
   fsm.host.apply_velocity( fsm.host.get_velocity() * 0.2 )
   return ._on_leave( fsm )
 
@@ -29,7 +29,7 @@ func _physics_update( fsm, delta ):
   if elapsed >= DURATION:
     # QUESTION does dodging need recovery time?
     # return 'recover'
-    return fsm.OP_POP
+    return fsm.START_STATE
 
   var dir = move_dir()
 
@@ -41,7 +41,7 @@ func _physics_update( fsm, delta ):
   # TODO undecided whether dodging ought to be an application of force,
   # or a flat velocity
   # fsm.host.push_me( FORCE, dir )
-  fsm.host.apply_velocity( dir * FORCE * 5 )
+  fsm.host.apply_velocity( dir * FORCE * 2 )
 
   return ._physics_update( fsm, delta )
 

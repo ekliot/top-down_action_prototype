@@ -13,8 +13,8 @@
 # func _init():
 #   ID = 'roll'
 #
-# func _on_enter( fsm ):
-#   return ._on_enter( fsm )
+# func _on_enter( fsm, last_state ):
+#   return ._on_enter( fsm, last_state )
 #
 # func _on_leave( fsm ):
 #   elapsed = 0

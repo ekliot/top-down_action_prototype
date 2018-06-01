@@ -8,7 +8,7 @@
 [ext_resource path="res://characters/player/states/motion/dodge.gd" type="Script" id=6]
 [ext_resource path="res://characters/player/states/combat/attack.gd" type="Script" id=7]
 [ext_resource path="res://characters/player/states/combat/parry.gd" type="Script" id=8]
-[ext_resource path="res://characters/player/states/combat/charge.gd" type="Script" id=9]
+[ext_resource path="res://characters/player/states/combat/ready.gd" type="Script" id=9]
 [ext_resource path="res://characters/player/states/recover.gd" type="Script" id=10]
 [ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=11]
 [ext_resource path="res://weapons/club.gd" type="Script" id=12]
@@ -33,7 +33,7 @@ SPRINT_ACCEL = 1.5
 [node name="Dodge" parent="StateMachine" index="2" instance=ExtResource( 3 )]
 
 script = ExtResource( 6 )
-FORCE = 140
+FORCE = 600
 DURATION = 0.1
 
 [node name="Attack" parent="StateMachine" index="3" instance=ExtResource( 3 )]
@@ -44,7 +44,7 @@ script = ExtResource( 7 )
 
 script = ExtResource( 8 )
 
-[node name="Charge" parent="StateMachine" index="5" instance=ExtResource( 3 )]
+[node name="Ready" parent="StateMachine" index="5" instance=ExtResource( 3 )]
 
 script = ExtResource( 9 )
 
@@ -62,11 +62,10 @@ script = ExtResource( 12 )
 
 [node name="StateList" parent="." index="4" instance=ExtResource( 13 )]
 
-margin_left = 33.0
-margin_top = -33.0
-margin_right = 108.0
-margin_bottom = 67.0
-_sections_unfolded = [ "Anchor", "Margin", "Rect" ]
+margin_left = 32.0
+margin_top = -16.0
+margin_right = 160.0
+margin_bottom = 16.0
 
 [connection signal="state_change" from="StateMachine" to="StateList" method="_on_StateMachine_state_change"]
 

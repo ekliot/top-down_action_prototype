@@ -1,18 +1,35 @@
 extends "res://util/states/state.gd"
 
-func _init():
-  ID = 'charge'
+# data must at least have:
+#   - 'duration'
+#   - 'next_state'
+var ready_data = {}
+var elapsed = 0
 
-func _on_enter( fsm ):
-  return ._on_enter( fsm )
+func _init():
+  ID = 'ready'
+
+func _on_enter( fsm, last_state ):
+  ready_data = fsm.get_state_data( ID )
+  elapsed = 0
+  return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
+  fsm.set_state_data( ID, {} )
+  elapsed = 0
+  ready_data = {}
+
   return ._on_leave( fsm )
 
 func _update( fsm, delta ):
   return ._update( fsm, delta )
 
 func _physics_update( fsm, delta ):
+  elapsed += delta
+
+  if elapsed >= ready_data.duration:
+    return fsm.START_STATE
+
   return ._physics_update( fsm, delta )
 
 func _parse_input( fsm, ev ):

@@ -27,26 +27,26 @@ func _init():
 # STATE BIZ #
 # ========= #
 
-func _on_enter( fsm ):
+func _on_enter( fsm, last_state ):
   check_sprint()
   # play movement animation
-  return ._on_enter( fsm )
+  return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
   sprinting = false
   return ._on_leave( fsm )
 
 func _update( fsm, delta ):
-  var interruptor = check_interrupts()
+  var interruptor = check_interrupts( fsm )
   if interruptor:
     return interruptor
 
   return ._update( fsm, delta )
 
 func _physics_update( fsm, delta ):
-
   if move_dir() == Vector2( 0.0, 0.0 ):
-    return fsm.OP_POP
+    print( 'oy' )
+    return fsm.START_STATE
 
   # update my velocity based on where I want to move
   check_sprint()
@@ -54,7 +54,8 @@ func _physics_update( fsm, delta ):
 
   # if we've stopped moving (including hitting a wall), return to our last state (idle)
   if fsm.host.get_velocity() == Vector2( 0.0, 0.0 ):
-    return fsm.OP_POP
+    print( 'yo' )
+    return fsm.START_STATE
 
   return ._physics_update( fsm, delta )
 
@@ -92,7 +93,7 @@ func check_sprint():
   sprinting = Input.is_action_pressed( 'sprint' )
   return sprinting
 
-func check_interrupts():
+func check_interrupts( fsm ):
   if Input.is_action_just_pressed( 'dodge' ):
     return 'dodge'
   if Input.is_action_just_pressed( 'parry' ):
