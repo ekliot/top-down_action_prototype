@@ -9,14 +9,14 @@ var elapsed = 0
 func _init():
   ID = 'ready'
 
-func _on_enter( fsm, last_state ):
-  ready_data = fsm.get_state_data( ID )
+func _on_enter( fsm, last_state, state_data ):
+  ready_data = state_data
   elapsed = 0
-  return ._on_enter( fsm, last_state )
+  fsm.host.apply_velocity( Vector2( 0, 0 ) )
+  return ._on_enter( fsm, last_state, state_data )
 
 func _on_leave( fsm ):
   fsm.set_state_data( ID, {} )
-  elapsed = 0
   ready_data = {}
 
   return ._on_leave( fsm )
@@ -28,7 +28,7 @@ func _physics_update( fsm, delta ):
   elapsed += delta
 
   if elapsed >= ready_data.duration:
-    return fsm.START_STATE
+    return ready_data.next_state
 
   return ._physics_update( fsm, delta )
 

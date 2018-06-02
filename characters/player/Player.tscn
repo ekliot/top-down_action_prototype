@@ -59,6 +59,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="Weapon" parent="." index="3" instance=ExtResource( 11 )]
 
 script = ExtResource( 12 )
+ATTACK_REACH = 0.0
+ATTACK_ARC = 0.0
 
 [node name="StateList" parent="." index="4" instance=ExtResource( 13 )]
 
@@ -66,6 +68,11 @@ margin_left = 32.0
 margin_top = -16.0
 margin_right = 160.0
 margin_bottom = 16.0
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Visibility" ]
+
+[connection signal="update_look_dir" from="." to="Weapon" method="_on_aim_update"]
+
+[connection signal="update_position" from="." to="Weapon" method="_on_position_update"]
 
 [connection signal="state_change" from="StateMachine" to="StateList" method="_on_StateMachine_state_change"]
 

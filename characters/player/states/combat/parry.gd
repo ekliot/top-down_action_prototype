@@ -3,7 +3,7 @@ extends "res://util/states/state.gd"
 func _init():
   ID = 'parry'
 
-func _on_enter( fsm, last_state ):
+func _on_enter( fsm, last_state=null, state_data={} ):
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):

@@ -2,8 +2,9 @@
 
 [ext_resource path="res://weapons/attack_area.gd" type="Script" id=1]
 
-[node name="AttackArea" type="Area2D" index="0"]
+[node name="AttackArea" type="Area2D"]
 
+visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -12,11 +13,10 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility" ]
 
 [node name="Arc" type="CollisionPolygon2D" parent="." index="0"]
 
 build_mode = 0
 polygon = PoolVector2Array(  )
 _sections_unfolded = [ "Transform" ]
-
-

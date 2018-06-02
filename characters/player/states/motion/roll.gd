@@ -13,7 +13,7 @@
 # func _init():
 #   ID = 'roll'
 #
-# func _on_enter( fsm, last_state ):
+# func _on_enter( fsm, last_state=null, state_data={} ):
 #   return ._on_enter( fsm, last_state )
 #
 # func _on_leave( fsm ):

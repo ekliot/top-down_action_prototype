@@ -10,12 +10,12 @@ var rolled = false
 func _init():
   ID = 'dodge'
 
-func _on_enter( fsm, last_state ):
+func _on_enter( fsm, last_state=null, state_data={} ):
+  elapsed = 0
   # start animation
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
-  elapsed = 0
   # "hard stop"
   fsm.host.apply_velocity( fsm.host.get_velocity() * 0.2 )
   return ._on_leave( fsm )

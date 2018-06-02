@@ -1,37 +1,50 @@
 extends Node
 
+signal weapon_hit
+
 var ID = '_'
 
 export (float) var DAMAGE_MIN = 0.0
 export (float) var DAMAGE_MAX = 0.0
-export (float) var ATTACK_RANGE = 0.0
-export (float) var ATTACK_DEGREES = 0.0
+export (float) var ATTACK_REACH = 0.0
+export (float) var ATTACK_ARC = 0.0
 
-export (float) var CHARGE_SPEED = 0.0
+export (float) var READY_SPEED = 0.0
 export (float) var ATTACK_SPEED = 0.0
 export (float) var RECOVER_SPEED = 0.0
 
 var atk_data = {}
 
 func _ready():
-  $AttackArea.RANGE = ATTACK_RANGE
-  $AttackArea.DEGREES = ATTACK_DEGREES
+  # connect to $AttackArea signals
+  pass
 
-  $AttackArea.set_arc()
-  $AttackArea.disable()
-
+func init_data():
   atk_data = {
-    weapon: self,
-    attack: { dist: ATTACK_RANGE, degrees: ATTACK_DEGREES },
-    speed: { charge: CHARGE_SPEED, attack: ATTACK_SPEED, recover: RECOVER_SPEED }
+    'weapon': self,
+    'attack': { 'dist': ATTACK_REACH, 'arc': ATTACK_ARC },
+    'speed': { 'ready': READY_SPEED, 'attack': ATTACK_SPEED, 'recover': RECOVER_SPEED }
   }
 
+func init_arc():
+  $AttackArea.set_area( ATTACK_REACH, ATTACK_ARC )
+  $AttackArea.set_arc()
+
 func attack_start( dir ):
-  $AttackArea.look_at( $Parent.get_look_dir )
   $AttackArea.enable()
 
 func attack_end():
   $AttackArea.disable()
 
+func _on_aim_update( old_dir, new_dir ):
+  $AttackArea.aim_at_dir( new_dir )
+
+func _on_position_update( old_pos, new_pos ):
+  $AttackArea.aim_from( new_pos )
+
 func get_attack_data():
   return atk_data
+
+func get_attack_position():
+  print( get_tree() )
+  return Vector2( 100, 100 )

@@ -27,7 +27,7 @@ func _init():
 # STATE BIZ #
 # ========= #
 
-func _on_enter( fsm, last_state ):
+func _on_enter( fsm, last_state=null, state_data={} ):
   check_sprint()
   # play movement animation
   return ._on_enter( fsm, last_state )
@@ -45,7 +45,6 @@ func _update( fsm, delta ):
 
 func _physics_update( fsm, delta ):
   if move_dir() == Vector2( 0.0, 0.0 ):
-    print( 'oy' )
     return fsm.START_STATE
 
   # update my velocity based on where I want to move
@@ -54,7 +53,6 @@ func _physics_update( fsm, delta ):
 
   # if we've stopped moving (including hitting a wall), return to our last state (idle)
   if fsm.host.get_velocity() == Vector2( 0.0, 0.0 ):
-    print( 'yo' )
     return fsm.START_STATE
 
   return ._physics_update( fsm, delta )

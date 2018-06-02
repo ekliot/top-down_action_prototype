@@ -12,12 +12,12 @@ func _ready():
   fsm.start( 'idle' )
 
 func _process( delta ):
-  pass
+  update_look_dir()
 
-# ==== #
-# CORE #
-# ==== #
+func update_look_dir():
+  var dir = get_viewport().get_mouse_position() - get_position()
+  set_look_dir( dir.normalized() )
 
-func look_dir():
-  # look_dir = mouse pos - player pos
-  return look_dir
+func get_active_weapon():
+  # TEMP
+  return $Weapon
