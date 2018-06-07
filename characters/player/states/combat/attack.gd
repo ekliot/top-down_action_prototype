@@ -5,7 +5,6 @@ var attack_data = {}
 var elapsed = 0
 var ready = false
 
-
 # ========= #
 # OVERRIDES #
 # ========= #

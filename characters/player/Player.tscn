@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://characters/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/player/player.gd" type="Script" id=2]
@@ -10,13 +10,18 @@
 [ext_resource path="res://characters/player/states/combat/parry.gd" type="Script" id=8]
 [ext_resource path="res://characters/player/states/combat/ready.gd" type="Script" id=9]
 [ext_resource path="res://characters/player/states/recover.gd" type="Script" id=10]
-[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=11]
-[ext_resource path="res://weapons/club.gd" type="Script" id=12]
-[ext_resource path="res://util/debug/StateList.tscn" type="PackedScene" id=13]
+[ext_resource path="res://characters/player/camera/PlayerCamera.tscn" type="PackedScene" id=11]
+[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=12]
+[ext_resource path="res://weapons/club.gd" type="Script" id=13]
+[ext_resource path="res://util/debug/StateList.tscn" type="PackedScene" id=14]
 
 [node name="Player" index="0" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
+MAX_VEL = Vector2( 250, 240 )
+ACCEL = Vector2( 40, 30 )
+SPRINT_MAX = 1.5
+SPRINT_ACCEL = 1.5
 
 [node name="Idle" parent="StateMachine" index="0" instance=ExtResource( 3 )]
 
@@ -25,16 +30,13 @@ script = ExtResource( 4 )
 [node name="Move" parent="StateMachine" index="1" instance=ExtResource( 3 )]
 
 script = ExtResource( 5 )
-MAX_VEL = Vector2( 250, 240 )
-ACCEL = Vector2( 40, 30 )
-SPRINT_MAX = 1.5
-SPRINT_ACCEL = 1.5
 
 [node name="Dodge" parent="StateMachine" index="2" instance=ExtResource( 3 )]
 
 script = ExtResource( 6 )
 FORCE = 600
 DURATION = 0.1
+STOP_MULT = 0.2
 
 [node name="Attack" parent="StateMachine" index="3" instance=ExtResource( 3 )]
 
@@ -52,17 +54,19 @@ script = ExtResource( 9 )
 
 script = ExtResource( 10 )
 
-[node name="Sprite" parent="." index="2"]
+[node name="PlayerCamera" parent="." index="1" instance=ExtResource( 11 )]
+
+current = true
+
+[node name="Sprite" parent="." index="3"]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Weapon" parent="." index="3" instance=ExtResource( 11 )]
+[node name="Weapon" parent="." index="4" instance=ExtResource( 12 )]
 
-script = ExtResource( 12 )
-ATTACK_REACH = 0.0
-ATTACK_ARC = 0.0
+script = ExtResource( 13 )
 
-[node name="StateList" parent="." index="4" instance=ExtResource( 13 )]
+[node name="StateList" parent="." index="5" instance=ExtResource( 14 )]
 
 margin_left = 32.0
 margin_top = -16.0

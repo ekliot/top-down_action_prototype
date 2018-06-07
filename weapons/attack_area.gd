@@ -14,10 +14,8 @@ func _ready():
   disable()
 
 func _draw():
-  # print( arc_path )
   set_arc()
   draw_polygon( arc_path, colors )
-  # $Arc.draw()
 
 func set_area( _reach, _arc ):
   reach = _reach
