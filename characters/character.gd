@@ -5,6 +5,9 @@ extends KinematicBody2D
 signal update_look_dir # old_dir, new_dir
 signal update_position # old_pos, new_pos
 
+export (Vector2) var MAX_VEL = Vector2( 250, 240 )
+export (Vector2) var ACCEL = Vector2( 40, 30 )
+
 onready var fsm = $StateMachine
 var velocity = Vector2( 0.0, 0.0 )
 var look_dir = Vector2( 0.0, 0.0 )
@@ -14,7 +17,7 @@ var look_dir = Vector2( 0.0, 0.0 )
 # ============= #
 
 func _ready():
-  emit_signal( 'update_position', Vector2( 0, 0 ), get_position() )  
+  emit_signal( 'update_position', Vector2( 0, 0 ), get_position() )
 
 # ============ #
 # CORE METHODS #
@@ -31,6 +34,10 @@ func push_me( accel, dir ):
   velocity = move_and_slide( velocity + accel * dir )
   if _pos != get_position():
     emit_signal( 'update_position', _pos, get_position() )
+
+func animate( anim_name ):
+  # TODO
+  return
 
 # ============== #
 # HELPER METHODS #
@@ -64,6 +71,11 @@ func set_look_dir( dir ):
 
 func get_look_dir():
   return look_dir
+
+func get_move_data():
+  return { 'max_vel': MAX_VEL, 'accel': ACCEL,
+           'cur_vel': get_velocity(),
+           'friction': get_friction() }
 
 func get_attack_data():
   return $Weapon.get_attack_data()

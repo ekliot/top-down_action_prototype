@@ -4,16 +4,9 @@ extends '../motion.gd'
 # VARS #
 # ==== #
 
-#= EXPORTS
-
-export (Vector2) var MAX_VEL = Vector2( 250, 240 )
-export (Vector2) var ACCEL = Vector2( 40, 30 )
-
-export (float) var SPRINT_MAX   = 1.5
-export (float) var SPRINT_ACCEL = 1.5
-
 #= LOCALS
 
+var move_data = {}
 var sprinting = false
 
 # ============== #
@@ -27,12 +20,14 @@ func _init():
 # STATE BIZ #
 # ========= #
 
-func _on_enter( fsm, last_state=null, state_data={} ):
+func _on_enter( fsm, last_state, state_data ):
   check_sprint()
   # play movement animation
+  fsm.host.animate( ID + move_dir_as_str() )
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
+  move_data = null
   sprinting = false
   return ._on_leave( fsm )
 
@@ -66,12 +61,14 @@ func _on_animation_finished( fsm, ani_name ):
 
 func move_step( fsm ):
   var player = fsm.host
-  var _vel = player.get_velocity()
-  var frict = player.get_friction()
+  var move_data = player.get_move_data()
+  var _vel  = move_data['cur_vel']
+  var frict = move_data['friction']
+  var sprint_data = move_data['sprint']
 
   var dir = move_dir()
-  var max_v = MAX_VEL * ( 1 + int(sprinting) * (SPRINT_MAX-1) )
-  var accel = ACCEL * ( 1 + int(sprinting) * (SPRINT_ACCEL-1) )
+  var max_v = move_data['max_vel'] * ( 1 + int(sprinting) * (sprint_data['max']-1) )
+  var accel = move_data['accel'] * ( 1 + int(sprinting) * (sprint_data['accel']-1) )
 
   _vel = update_velocity( _vel, accel, dir )
   _vel = cap_velocity( _vel, max_v )

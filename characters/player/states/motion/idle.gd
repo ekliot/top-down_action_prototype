@@ -5,6 +5,7 @@ func _init():
 
 func _on_enter( fsm, last_state=null, state_data={} ):
   # set animation to idle
+  fsm.host.animate( ID + move_dir_as_str() )
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
@@ -34,12 +35,6 @@ func _physics_update( fsm, delta ):
     player.apply_velocity( _vel )
 
   return ._physics_update( fsm, delta )
-
-func _parse_input( fsm, ev ):
-  return ._parse_input( fsm, ev )
-
-func _parse_unhandled_input( fsm, ev ):
-  return ._parse_unhandled_input( fsm, ev )
 
 func _on_animation_finished( fsm, ani_name ):
   return ._on_animation_finished( fsm, ani_name )

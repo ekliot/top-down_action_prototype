@@ -2,6 +2,7 @@ extends '../motion.gd'
 
 export (float) var FORCE = 600
 export (float) var DURATION = 0.1
+export (float) var STOP_MULT = 0.2
 
 # var dodge_data = {}
 var elapsed = 0
@@ -10,14 +11,15 @@ var rolled = false
 func _init():
   ID = 'dodge'
 
-func _on_enter( fsm, last_state=null, state_data={} ):
+func _on_enter( fsm, last_state, state_data ):
   elapsed = 0
   # start animation
+  fsm.host.animate( ID + move_dir_as_str() )
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
   # "hard stop"
-  fsm.host.apply_velocity( fsm.host.get_velocity() * 0.2 )
+  fsm.host.apply_velocity( fsm.host.get_velocity() * STOP_MULT )
   return ._on_leave( fsm )
 
 func _update( fsm, delta ):

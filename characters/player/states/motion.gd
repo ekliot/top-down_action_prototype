@@ -30,3 +30,14 @@ func move_dir():
   var dir = Vector2( int(r) - int(l), int(d) - int(u) )
 
   return dir.normalized()
+
+func move_dir_as_str():
+  var angle = move_dir().angle()
+
+  # TODO switch based on angle returning one of:
+  #   - 'up'
+  #   - 'down'
+  #   - 'left'
+  #   - 'right'
+
+  return ''
