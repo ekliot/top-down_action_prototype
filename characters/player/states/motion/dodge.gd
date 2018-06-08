@@ -1,4 +1,4 @@
-extends '../motion.gd'
+extends '../player_state.gd'
 
 export (float) var FORCE = 600
 export (float) var DURATION = 0.1

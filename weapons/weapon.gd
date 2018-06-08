@@ -4,30 +4,31 @@ signal weapon_hit
 
 var ID = '_'
 
-export (float) var DAMAGE_MIN = 0.0
-export (float) var DAMAGE_MAX = 0.0
-export (float) var ATTACK_REACH = 0.0
-export (float) var ATTACK_ARC = 0.0
-
-export (float) var READY_SPEED = 0.0
-export (float) var ATTACK_SPEED = 0.0
-export (float) var RECOVER_SPEED = 0.0
-
 var atk_data = {}
 
 func _ready():
   # connect to $AttackArea signals
   pass
 
-func init_data():
-  atk_data = {
-    'weapon': self,
-    'attack': { 'dist': ATTACK_REACH, 'arc': ATTACK_ARC },
-    'speed': { 'ready': READY_SPEED, 'attack': ATTACK_SPEED, 'recover': RECOVER_SPEED }
-  }
+func _init_data():
+  if ID != '_':
+    var file = File.new()
+    file.open( 'res://weapons/data/' + ID + '.json', file.READ )
+    var txt = file.get_as_text()
+    var json = parse_json( txt )
+    print( 'res://weapons/data/' + ID + '.json', file )
+    print( txt )
+    print( json )
+    print( typeof( json ) )
+    if typeof( json ) == TYPE_DICTIONARY:
+      atk_data = json
+      atk_data['weapon'] = self
+      print( atk_data )
+    else:
+      print( 'weapon.gd // JSON file for ', ID, 'was not a dictionary' )
 
-func init_arc():
-  $AttackArea.set_area( ATTACK_REACH, ATTACK_ARC )
+func _init_arc():
+  $AttackArea.set_area( atk_data.attack.dist, atk_data.attack.arc )
   $AttackArea.set_arc()
 
 func attack_start( dir ):

@@ -31,13 +31,14 @@ func move_dir():
 
   return dir.normalized()
 
-func move_dir_as_str():
-  var angle = move_dir().angle()
-
+func dir_as_str( dir ):
+  var angle = dir.angle()
   # TODO switch based on angle returning one of:
   #   - 'up'
   #   - 'down'
   #   - 'left'
   #   - 'right'
-
   return ''
+
+func move_dir_as_str():
+  return dir_as_str( move_dir() )

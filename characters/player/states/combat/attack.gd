@@ -1,4 +1,4 @@
-extends "res://util/states/state.gd"
+extends "../player_state.gd"
 
 # data must match Weapon.atk_data
 var attack_data = {}
@@ -17,7 +17,7 @@ func _on_enter( fsm, last_state, state_data ):
   elapsed = 0
 
   if ready:
-    attack_start( fsm.host.get_look_dir() )
+    attack_start( fsm.host )
   else:
     attack_data = state_data
 
@@ -69,8 +69,10 @@ func _on_animation_finished( fsm, ani_name ):
 # CORE #
 # ==== #
 
-func attack_start( dir ):
+func attack_start( player ):
+  var dir = player.get_look_dir()
   attack_data.weapon.attack_start( dir )
+  player.animate( ID + dir_as_str( dir ) )
 
 func attack_end():
   attack_data.weapon.attack_end()

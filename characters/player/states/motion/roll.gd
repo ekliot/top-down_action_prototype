@@ -3,7 +3,7 @@
 # I'm sticking with just dodging for now
 # ============================================================================ #
 
-# extends '../motion.gd'
+# extends '../player_state.gd'
 #
 # export (float) var FORCE = 200
 # export (float) var DURATION = 0.2
