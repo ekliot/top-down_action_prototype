@@ -13,6 +13,7 @@ func _ready():
   fsm.start( 'idle' )
   $PlayerCamera.set_player_pos( get_position() )
   connect( 'update_position', $PlayerCamera, '_on_Player_move' )
+  connect( 'update_position', self, '_on_move' )
 
 func _process( delta ):
   pass
@@ -23,11 +24,7 @@ func _input( ev ):
     # but is only available from CanvasItems
     # this is in favour of ev.get_position() or ev.get_global_position(), which
     # are relative to the viewport (always positive)
-    var dir = get_global_mouse_position() - get_position()
-    set_look_dir( dir.normalized() )
-    # TEMP
-    look_at( get_global_mouse_position() )
-    # update animation based on direction and current state
+    lookat_mouse()
 
 # ====== #
 # PUBLIC #
@@ -45,3 +42,17 @@ func get_move_data():
   var _mdat = .get_move_data()
   _mdat['sprint'] = { 'max': SPRINT_MAX, 'accel': SPRINT_ACCEL }
   return _mdat
+
+# ======= #
+# HELPERS #
+# ======= #
+
+func lookat_mouse():
+  var dir = get_global_mouse_position() - get_position()
+  set_look_dir( dir.normalized() )
+  # TEMP
+  look_at( get_global_mouse_position() )
+  # update animation based on direction and current state
+
+func _on_move( old_pos, new_pos ):
+  lookat_mouse()

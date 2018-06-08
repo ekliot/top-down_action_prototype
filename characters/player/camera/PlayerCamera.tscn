@@ -2,7 +2,7 @@
 
 [ext_resource path="res://characters/player/camera/player_camera.gd" type="Script" id=1]
 
-[node name="PlayerCamera" type="Camera2D"]
+[node name="PlayerCamera" type="Camera2D" index="0"]
 
 anchor_mode = 1
 rotating = false
@@ -13,8 +13,8 @@ limit_top = -10000000
 limit_right = 10000000
 limit_bottom = 10000000
 limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
 smoothing_enabled = false
 smoothing_speed = 5.0
 offset_v = 0.0

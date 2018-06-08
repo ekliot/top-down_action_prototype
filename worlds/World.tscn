@@ -20,6 +20,7 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 position = Vector2( 246, 199 )
 _sections_unfolded = [ "Collision", "Material", "Transform", "Visibility", "collision" ]
+MAX_HEALTH = 10
 MAX_VEL = Vector2( 250, 240 )
 ACCEL = Vector2( 40, 30 )
 
