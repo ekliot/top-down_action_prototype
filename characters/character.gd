@@ -5,6 +5,9 @@ extends KinematicBody2D
 signal update_look_dir # old_dir, new_dir
 signal update_position # old_pos, new_pos
 
+signal recover_health # amt, new_hp, max_hp
+signal take_damage # amt, new_hp, max_hp
+
 export (int) var MAX_HEALTH = 10
 
 export (Vector2) var MAX_VEL = Vector2( 250, 240 )
@@ -15,6 +18,7 @@ var velocity = Vector2( 0.0, 0.0 )
 var look_dir = Vector2( 0.0, 0.0 )
 
 onready var current_health = MAX_HEALTH
+onready var hp_bar = $HealthBar
 
 # ============= #
 # OVERRIDEABLES #
@@ -22,6 +26,8 @@ onready var current_health = MAX_HEALTH
 
 func _ready():
   emit_signal( 'update_position', Vector2( 0, 0 ), get_position() )
+  hp_bar.set_max_hp( MAX_HEALTH )
+  hp_bar.fill_hp()
 
 # ============ #
 # CORE METHODS #
@@ -64,7 +70,8 @@ func get_friction():
     # TODO think of a way to make this more... feel-goody
     for i in get_slide_count():
       # print( "wall %d // %f" % [ i, get_slide_collision( i ).collider.friction ] )
-      friction += get_slide_collision( i ).collider.friction
+      if get_slide_collision( i ).collider.has_method( 'get_friction' ):
+        friction += get_slide_collision( i ).collider.get_friction()
 
   return friction
 

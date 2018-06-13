@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://worlds/TempTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://characters/Character.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,6 +14,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Floor" parent="." index="0" instance=ExtResource( 1 )]
 
+visible = false
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
@@ -20,9 +22,6 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 position = Vector2( 246, 199 )
 _sections_unfolded = [ "Collision", "Material", "Transform", "Visibility", "collision" ]
-MAX_HEALTH = 10
-MAX_VEL = Vector2( 250, 240 )
-ACCEL = Vector2( 40, 30 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="2"]
 
@@ -44,5 +43,9 @@ _sections_unfolded = [ "Transform" ]
 
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Character" parent="." index="3" instance=ExtResource( 4 )]
+
+position = Vector2( 333, 75 )
 
 
