@@ -54,6 +54,9 @@ func _physics_update( fsm, delta ):
     fsm.set_state_data( 'recover', { 'duration': attack_data.speed.recover } )
     return 'recover'
 
+  var dir = fsm.host.get_look_dir()
+  fsm.host.apply_velocity( dir * 100 )
+
   return ._physics_update( fsm, delta )
 
 func _parse_input( fsm, ev ):
