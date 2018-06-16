@@ -1,7 +1,5 @@
 extends Area2D
 
-signal attack_hit
-
 var reach = 0.0
 var arc = 0.0
 var center = Vector2( 0.0, 0.0 )
@@ -55,3 +53,6 @@ func enable():
 func disable():
   $Arc.set_disabled( true )
   hide()
+
+func is_enabled():
+  return not $Arc.is_disabled()

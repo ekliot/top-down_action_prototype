@@ -6,13 +6,6 @@
 [node name="Weapon" type="Node"]
 
 script = ExtResource( 1 )
-DAMAGE_MIN = 0.0
-DAMAGE_MAX = 0.0
-ATTACK_REACH = 0.0
-ATTACK_ARC = 0.0
-READY_SPEED = 0.0
-ATTACK_SPEED = 0.0
-RECOVER_SPEED = 0.0
 
 [node name="AttackArea" parent="." index="0" instance=ExtResource( 2 )]
 
