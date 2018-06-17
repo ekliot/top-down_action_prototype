@@ -7,10 +7,17 @@ var ID = '_'
 var atk_data = {}
 onready var atk_area = $AttackArea
 
+var wielder = null
+# Bodies to ignore when damaging
+var ignoring = []
+
+# ======== #
+# PRIVATES #
+# ======== #
+
 func _ready():
   # connect to atk_area signals
-  atk_area.connect( 'body_entered', self, 'hit_target' )
-  pass
+  atk_area.connect( 'body_entered', self, '_hit_target' )
 
 func _init_data():
   if ID != '_':
@@ -28,19 +35,36 @@ func _init_arc():
   atk_area.set_area( atk_data.attack.dist, atk_data.attack.arc )
   atk_area.set_arc()
 
+# =========== #
+# PUBLIC CORE #
+# =========== #
+
+func set_wielder( character, ignore=true ):
+  wielder = character
+  if ignore and not ignoring.has( character ):
+    ignoring.push_back( character )
+
 func attack_start( dir ):
   atk_area.enable()
 
 func attack_end():
-  print( atk_area.get_overlapping_bodies() )
-  print( atk_area.get_collision_layer() )
-  print( atk_area.get_collision_mask() )
-  print( atk_area.is_enabled() )
   atk_area.disable()
 
-func hit_target( target ):
-  print( 'oof' )
-  print( 'hit target // ', target )
+# ============ #
+# CORE PRIVATE #
+# ============ #
+
+func _hit_target( target ):
+  print( target )
+  # TODO instead of an ignoring array, use Node groups for friendlies, and check vs friendly fire enabled
+  if not ignoring.has( target ) and target.has_method( 'take_damage' ):
+    print( 'hit' )
+    # TEMP have a calc_damage method
+    target.take_damage( wielder, atk_data.damage.min, atk_data.type )
+
+# =============== #
+# SIGNAL HANDLING #
+# =============== #
 
 func _on_aim_update( old_dir, new_dir ):
   atk_area.aim_at_dir( new_dir )
@@ -48,9 +72,9 @@ func _on_aim_update( old_dir, new_dir ):
 func _on_position_update( old_pos, new_pos ):
   atk_area.aim_from( new_pos )
 
+# ======= #
+# GETTERS #
+# ======= #
+
 func get_attack_data():
   return atk_data
-
-func get_attack_position():
-  print( get_tree() )
-  return Vector2( 100, 100 )

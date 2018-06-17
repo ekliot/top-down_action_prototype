@@ -11,5 +11,6 @@
     "ready": 0.15,
     "attack": 0.05,
     "recover": 0.1
-  }
+  },
+  "type": [ "melee", "physical" ]
 }

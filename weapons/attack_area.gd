@@ -33,6 +33,8 @@ func set_arc():
     # var d_center = center + reach * Vector2( cos( angle ), sin( angle ) )
     arc_path.push_back( d_center )
 
+  $Arc.set_polygon( arc_path )
+
 func aim_from( pos ):
   center = pos
   update()
@@ -45,6 +47,9 @@ func aim_at_dir( dir ):
 ## takes a NORMALIZED direction vector
 #func dir_to_angle( dir ):
 #  return atan2( dir.y, dir.x )
+
+func get_arc():
+  return $Arc
 
 func enable():
   $Arc.set_disabled( false )

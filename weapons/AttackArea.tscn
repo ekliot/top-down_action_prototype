@@ -2,9 +2,8 @@
 
 [ext_resource path="res://weapons/attack_area.gd" type="Script" id=1]
 
-[node name="AttackArea" type="Area2D"]
+[node name="AttackArea" type="Area2D" index="0"]
 
-visible = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

@@ -55,7 +55,7 @@ func _physics_update( fsm, delta ):
     return 'recover'
 
   var dir = fsm.host.get_look_dir()
-  fsm.host.apply_velocity( dir * 100 )
+  fsm.host.apply_velocity( dir * 100 ) # TEMP this ought to be derived from the weapon
 
   return ._physics_update( fsm, delta )
 

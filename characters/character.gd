@@ -26,8 +26,11 @@ onready var hp_bar = $HealthBar
 
 func _ready():
   emit_signal( 'update_position', Vector2( 0, 0 ), get_position() )
+
   hp_bar.set_max_hp( MAX_HEALTH )
   hp_bar.fill_hp()
+
+  print( get_children() )
 
 # ============ #
 # CORE METHODS #
@@ -49,6 +52,11 @@ func animate( anim_name ):
   # TODO
   return
 
+func take_damage( from, amt, type=null ):
+  current_health -= amt
+  # TODO check vs damage type and source
+  emit_signal( 'take_damage', from, amt, type )
+
 # ============== #
 # HELPER METHODS #
 # ============== #
@@ -67,7 +75,7 @@ func get_friction():
   if get_slide_count() > 0:
     # this is naive, and will not select for "real" walls, and will
     # be affected by EVERY collision object
-    # TODO think of a way to make this more... feel-goody
+    # TODO think of a way to make this more elegant
     for i in get_slide_count():
       # print( "wall %d // %f" % [ i, get_slide_collision( i ).collider.friction ] )
       if get_slide_collision( i ).collider.has_method( 'get_friction' ):
