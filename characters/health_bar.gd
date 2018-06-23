@@ -11,5 +11,8 @@ func set_max_hp( max_hp ):
 func set_hp( val ):
   set_value( val )
 
-func take_damage( dmg ):
-  set_value( get_value() - dmg )
+func _take_damage( from, amt, type ):
+  set_hp( get_value() - amt )
+
+func recover_health( amt, new_hp, max_hp ):
+  set_hp( get_value() + amt )

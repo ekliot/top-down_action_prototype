@@ -6,7 +6,7 @@ signal update_look_dir # old_dir, new_dir
 signal update_position # old_pos, new_pos
 
 signal recover_health # amt, new_hp, max_hp
-signal take_damage # amt, new_hp, max_hp
+signal take_damage # from, amt, type
 
 export (int) var MAX_HEALTH = 10
 
@@ -29,6 +29,8 @@ func _ready():
 
   hp_bar.set_max_hp( MAX_HEALTH )
   hp_bar.fill_hp()
+  connect( 'take_damage', hp_bar, '_take_damage' )
+  connect( 'recover_health', hp_bar, 'recover_health' )
 
   # print( 'character.gd // ', get_children() )
   for c in get_children():

@@ -12,8 +12,9 @@ export (float) var SPRINT_ACCEL = 1.5
 func _ready():
   fsm.start( 'idle' )
   $PlayerCamera.set_player_pos( get_position() )
-  connect( 'update_position', $PlayerCamera, '_on_Player_move' )
+
   connect( 'update_position', self, '_on_move' )
+  connect( 'update_position', $PlayerCamera, '_on_Player_move' )
 
 func _process( delta ):
   pass
