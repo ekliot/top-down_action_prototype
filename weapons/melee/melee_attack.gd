@@ -1,5 +1,7 @@
 extends Area2D
 
+signal hit_target # target
+
 var reach = 0.0
 var arc = 0.0
 var center = Vector2( 0.0, 0.0 )
@@ -8,12 +10,21 @@ var look_at = Vector2( 1.0, 0.0 )
 var arc_path = PoolVector2Array()
 var colors = PoolColorArray([Color( 1.0, 1.0, 1.0 )])
 
+var hit_bodies = []
+
 func _ready():
   disable()
 
 func _draw():
   set_arc()
   draw_polygon( arc_path, colors )
+
+func _physics_process( delta ):
+  if is_enabled():
+    for b in get_overlapping_bodies():
+      if not hit_bodies.has( b ) and b.has_method( 'take_damage' ):
+        hit_bodies.push_back( b )
+        emit_signal( 'hit_target', b )
 
 func set_area( _reach, _arc ):
   reach = _reach
@@ -53,10 +64,12 @@ func get_arc():
 
 func enable():
   $Arc.set_disabled( false )
+  hit_bodies.clear()
   show()
 
 func disable():
   $Arc.set_disabled( true )
+  hit_bodies.clear()
   hide()
 
 func is_enabled():

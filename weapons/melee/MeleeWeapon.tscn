@@ -3,7 +3,7 @@
 [ext_resource path="res://weapons/melee/melee_weapon.gd" type="Script" id=1]
 [ext_resource path="res://weapons/melee/MeleeAttack.tscn" type="PackedScene" id=2]
 
-[node name="MeleeWeapon" type="Node" index="0"]
+[node name="MeleeWeapon" type="Node"]
 
 script = ExtResource( 1 )
 

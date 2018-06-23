@@ -30,7 +30,10 @@ func _ready():
   hp_bar.set_max_hp( MAX_HEALTH )
   hp_bar.fill_hp()
 
-  print( 'character.gd // ', get_children() )
+  # print( 'character.gd // ', get_children() )
+  for c in get_children():
+    if c.has_method( 'set_wielder' ):
+      c.set_wielder( self )
 
 # ============ #
 # CORE METHODS #
