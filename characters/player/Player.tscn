@@ -34,8 +34,8 @@ script = ExtResource( 5 )
 [node name="Dodge" parent="StateMachine" index="2" instance=ExtResource( 3 )]
 
 script = ExtResource( 6 )
-FORCE = 600
-DURATION = 0.1
+FORCE = 800
+DURATION = 0.06
 STOP_MULT = 0.2
 
 [node name="Attack" parent="StateMachine" index="3" instance=ExtResource( 3 )]

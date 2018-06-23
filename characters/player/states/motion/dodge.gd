@@ -1,20 +1,26 @@
 extends '../player_state.gd'
 
-export (float) var FORCE = 600
-export (float) var DURATION = 0.1
+export (float) var FORCE = 800
+export (float) var DURATION = 0.06
 export (float) var STOP_MULT = 0.2
 
 # var dodge_data = {}
 var elapsed = 0
-var rolled = false
+var dir = null
 
 func _init():
   ID = 'dodge'
 
 func _on_enter( fsm, last_state, state_data ):
   elapsed = 0
+  dir = move_dir()
+
+  if dir == Vector2( 0.0, 0.0 ):
+    dir = -1 * fsm.host.get_look_dir()
+
   # start animation
-  fsm.host.animate( ID + move_dir_as_str() )
+  fsm.host.animate( ID + dir_as_str( dir ) )
+
   return ._on_enter( fsm, last_state )
 
 func _on_leave( fsm ):
@@ -32,13 +38,6 @@ func _physics_update( fsm, delta ):
     # QUESTION does dodging need recovery time?
     # return 'recover'
     return fsm.START_STATE
-
-  var dir = move_dir()
-
-  if dir == Vector2( 0.0, 0.0 ):
-    # TEMP uncomment once look dir is implemented
-    # dir = -1 * fsm.host.look_dir()
-    dir = Vector2( 0.0, 1.0 )
 
   # TODO undecided whether dodging ought to be an application of force,
   # or a flat velocity
