@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://weapons/attack_area.gd" type="Script" id=1]
+[ext_resource path="res://weapons/melee/melee_attack.gd" type="Script" id=1]
 
-[node name="AttackArea" type="Area2D" index="0"]
+[node name="MeleeAttack" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

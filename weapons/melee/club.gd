@@ -1,4 +1,4 @@
-extends './weapon.gd'
+extends './melee_weapon.gd'
 
 func _init():
   ID = 'club'

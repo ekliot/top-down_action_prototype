@@ -11,9 +11,11 @@
 [ext_resource path="res://characters/player/states/combat/ready.gd" type="Script" id=9]
 [ext_resource path="res://characters/player/states/recover.gd" type="Script" id=10]
 [ext_resource path="res://characters/player/camera/PlayerCamera.tscn" type="PackedScene" id=11]
-[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=12]
-[ext_resource path="res://weapons/club.gd" type="Script" id=13]
+[ext_resource path="res://weapons/melee/MeleeWeapon.tscn" type="PackedScene" id=12]
+[ext_resource path="res://weapons/melee/club.gd" type="Script" id=13]
 [ext_resource path="res://util/debug/StateList.tscn" type="PackedScene" id=14]
+
+
 
 [node name="Player" instance=ExtResource( 1 )]
 
