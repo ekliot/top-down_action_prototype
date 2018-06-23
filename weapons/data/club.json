@@ -4,8 +4,8 @@
     "max": 3
   },
   "attack": {
-    "dist": 10.0,
-    "arc": 90.0
+    "dist": 4.0,
+    "arc": 120.0
   },
   "speed": {
     "ready": 0.15,

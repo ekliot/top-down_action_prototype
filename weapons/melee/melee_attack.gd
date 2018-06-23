@@ -31,16 +31,17 @@ func set_area( _reach, _arc ):
   arc = _arc
 
 func set_arc():
-  var nb_points = reach
+  var nb_points = 10 + reach
+  var _center = center + look_at * 16 # TEMP this should be based on the wielder sprite size
 
   arc_path = PoolVector2Array()
-  arc_path.push_back( center )
+  arc_path.push_back( _center )
 
   var ang_from = rad2deg( look_at.angle() ) + ( arc / 2 )
 
   for i in range( nb_points + 1 ):
-    var angle = deg2rad( ang_from + i * ( arc ) / nb_points - 90 )
-    var d_center = center + reach * Vector2( cos( angle ), sin( angle ) ) * 10
+    var angle = deg2rad( ang_from + i * ( arc ) / nb_points - arc )
+    var d_center = _center + reach * Vector2( cos( angle ), sin( angle ) ) * 10
     # var d_center = center + reach * Vector2( cos( angle ), sin( angle ) )
     arc_path.push_back( d_center )
 
