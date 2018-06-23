@@ -30,7 +30,7 @@ func _ready():
   hp_bar.set_max_hp( MAX_HEALTH )
   hp_bar.fill_hp()
 
-  print( get_children() )
+  print( 'character.gd // ', get_children() )
 
 # ============ #
 # CORE METHODS #

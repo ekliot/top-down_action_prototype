@@ -48,10 +48,10 @@ func get_move_data():
 # ======= #
 
 func lookat_mouse():
-  var dir = get_global_mouse_position() - get_position()
-  set_look_dir( dir.normalized() )
+  var dir = ( get_global_mouse_position() - get_position() ).normalized()
+  set_look_dir( dir )
   # TEMP
-  look_at( get_global_mouse_position() )
+  set_rotation( -dir.angle_to( Vector2( 0, -1 ) ) )
   # update animation based on direction and current state
 
 func _on_move( old_pos, new_pos ):

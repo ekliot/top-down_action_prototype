@@ -14,11 +14,8 @@ func _init_data():
   if ID != '_':
     var file = File.new()
     file.open( 'res://weapons/data/' + ID + '.json', file.READ )
-    print( file )
     var txt = file.get_as_text()
-    print( txt )
     var json = parse_json( txt )
-    print( json )
     if typeof( json ) == TYPE_DICTIONARY:
       atk_data = json
       atk_data['weapon'] = self
